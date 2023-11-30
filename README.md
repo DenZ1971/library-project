@@ -17,6 +17,9 @@ The application allows you to register a library user:
 - Email
   
 At the time of registration, the user is sent a welcome email.
+
+## [API docs](./index.html)
+
 ## Requirements
 ```sh
 Python 3.11
