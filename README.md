@@ -18,7 +18,7 @@ The application allows you to register a library user:
   
 At the time of registration, the user is sent a welcome email.
 
-## [API docs](./index.html)
+## [API docs](<https://github.com/DenZ1971/library-project/edit/main/index.html>)
 
 ## Requirements
 ```sh
