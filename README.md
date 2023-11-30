@@ -33,7 +33,10 @@ Docker-compose 2.23.1
 
 
 ```sh
-$ git clone https://github.com/DenZ1971/Library.git
+$ git clone https://github.com/DenZ1971/library-project.git
+```
+```sh
+cd library-project
 ```
 ```sh
 docker-compose up --build
