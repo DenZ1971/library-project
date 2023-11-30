@@ -18,7 +18,7 @@ The application allows you to register a library user:
   
 At the time of registration, the user is sent a welcome email.
 
-<a href='https://row.githack.com/github.com/DenZ1971/library-project/edit/main/index.html'>API docs</a>
+<a href='https://row.githack.com/DenZ1971/library-project/edit/main/index.html'>API docs</a>
 
 ## Requirements
 ```sh
