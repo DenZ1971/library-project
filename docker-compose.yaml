@@ -1,0 +1,89 @@
+version: '3.7'
+
+services:
+  proj-db:
+    image: mysql:8.2
+    container_name: proj_db
+    restart: always
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: 'proj_main'
+      MYSQL_USER: 'admin'
+      MYSQL_PASSWORD: 'qwe123QWE'
+      MYSQL_ROOT_PASSWORD: '123QWE!@#'
+    healthcheck:
+      test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]
+      timeout: 20s
+      retries: 10
+#    security_opt:
+#      - seccomp:unconfined
+    volumes:
+      - mysql:/usr/local/mysql
+
+  proj_redis:
+    image: redis:latest
+    container_name: proj_redis
+    restart: always
+    ports:
+      - "6379:6379"
+
+  proj_app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: proj_app
+    command: sh -c "python /web/manage.py migrate --noinput &&
+      python /web/manage.py runserver 0.0.0.0:8000"
+    environment:
+      - WAIT-HOSTS=proj-db, proj_redis
+      - TZ=Europe/Moscow
+    volumes:
+      - .:/web
+    ports:
+      - "8000:8000"
+    restart: on-failure
+    tty: true
+    depends_on:
+      - proj-db
+      - proj_redis
+
+  proj_celery:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: proj_celery
+    command: celery --app library_project worker -l info
+    environment:
+      - WAIT-HOSTS=proj-db, proj_redis
+      - TZ=Europe/Moscow
+    volumes:
+      - .:/web
+    restart: on-failure
+    tty: true
+    depends_on:
+      - proj_redis
+
+  proj_celery_beat:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: proj_celery_beat
+    command: celery --app library_project beat -l info
+    environment:
+      - WAIT-HOSTS=proj-db, proj_redis
+      - TZ=Europe/Moscow
+    volumes:
+      - .:/web
+    restart: on-failure
+    tty: true
+    depends_on:
+      - proj_redis
+
+volumes:
+  mysql:
+
+networks:
+  test-net:
+    external: false

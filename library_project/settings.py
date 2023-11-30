@@ -90,14 +90,25 @@ WSGI_APPLICATION = "library_project.wsgi.application"
 pymysql.version_info = (1, 4, 6, 'final', 0)  # Указание версии PyMySQL для Django
 pymysql.install_as_MySQLdb()  # Установка PyMySQL как адаптера для MySQL
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'library',
+#         'USER': 'root',
+#         'PASSWORD': 'chaydom2006',
+#         'HOST': 'localhost',
+#         'PORT': '3306',
+#     }
+# }
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'library',
-        'USER': 'root',
-        'PASSWORD': 'chaydom2006',
-        'HOST': 'localhost',
-        'PORT': '3306',
+        'NAME': 'proj_main',
+        'USER': 'admin',
+        'PASSWORD': 'qwe123QWE',
+        'HOST': 'proj-db',
+        'PORT': 3306,
     }
 }
 
@@ -146,20 +157,20 @@ REST_FRAMEWORK = {
 }
 
 
-CELERY_BROKER_URL = 'redis://localhost:6379'
-CELERY_RESULT_BACKEND = 'redis://localhost:6379'
+CELERY_BROKER_URL = 'redis://proj_redis:6379'
+CELERY_RESULT_BACKEND = 'redis://proj_redis:6379'
 CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-EMAIL_HOST = 'smtp.yandex.ru'
-EMAIL_PORT = 465
-EMAIL_HOST_USER = "Den@yandex.ru"
-EMAIL_HOST_PASSWORD = ""
-EMAIL_USE_TLS = False
-EMAIL_USE_SSL = True
+EMAIL_HOST = 'smtp.gmail.ru'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = "dantes310723@gmail.com.com"
+EMAIL_HOST_PASSWORD = "uxcbhgvcrylarjug"
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
 
 SPECTACULAR_SETTINGS = {
     'TITLE': 'Library',
